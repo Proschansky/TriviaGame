@@ -2,6 +2,11 @@ body {
     background-image: url('../images/stars.jpg');
 }
 
+.col {
+    display: flex;
+    justify-content: center;
+}
+
 .row {
     display: ruby-text-container;
     justify-content: center;
@@ -12,11 +17,11 @@ body {
 
 }
 
-span {
+#question {
     display: flex;
     justify-content: center;
     vertical-align: center;
-    font-size: 100px;
+    font-size: 50px;
     font-family: Orbitron;
     color: green;
     line-height: 100px;
@@ -27,26 +32,21 @@ button {
     height: 100px;
     width: 200px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-left: 200px;
     background-color:silver;
     border-color: black;
+    margin-left:300px;
 }
 
 button:hover {
     background-color: green;
     font-family: Orbitron;
-    font-size: 1.5em;
     color:black;
 }
 
 .button {
     margin-left:450px;
-}
-
-.col {
-    background-color: green;
-    display: inherit;
 }
 
 h2, h3 {
@@ -57,4 +57,15 @@ h2, h3 {
     font-family: Orbitron;
     color: green;
     line-height: 100px;
+}
+
+#timer, .correct, .incorrect, .unanswered, .result {
+    color: green;
+    font-family: Orbitron;
+    font-size: 1em;
+}
+
+#photo {
+    height: 300px;
+    width: 300px;
 }

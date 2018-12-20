@@ -1,160 +1,159 @@
-var userPick;
-
-var correctAnswer = 0;
-
-var incorrectAnswer = 0;
-
-var unAnswer = 0;
-
-var question = 0;
-
-var images;
-
-var counter=30;
-
-var disneyQuestion = [{
-    question: "In Aladdin, what is the name of Jasmine's pet tiger?",
-    choices: ["Rajah", "Bo", "Iago", "Jack" ],
-    images:  ["../images/Rajah.gif"],
-    validAnswer: 0
-    }, {
-    question:"In Peter Pan, Captain Hook had a hook on which part of his     body?",
-    choices: ["Right Foot", "Left Hand", "Left Foot", "Right Hand"],
-    validAnswer: 1
-    
-    }, {
-    question:"In the Lion King, where does Mufasa and his family live?",
-    choices: ["Rocky Mountain", "Forest", "Desert", "Pride Rock"],
-    validAnswer: 3
-    
-    }, {
-    question:"In Beauty and the Beast, how many eggs does Gaston eat for breakfast?",
-    choices: ["2 Dozen", "5 Dozen", "5000", "0"],
-    validAnswer: 1
-    
-    }, {
-    question:"In Alice in Wonderland, what is the name of Alice’s kitten?",
-    choices: ["Dinah", "Sammie", "Kat", "Luna"],
-    validAnswer: 0
-    
-     }, {
-    question:"After being on earth, where did Hercules first meet his   father Zeus?",
-    choices: ["Mount Olympus", "Greece", "In the Temple of Zeus", "Elysian   Fields"],
-    validAnswer: 2
-    
-    }, {
-    question:"During the ballroom scene of Beauty & the Beast, what color is Belle’s Gown?",
-    choices: ["Yellow", "Blue", "Gold", "White"],
-    validAnswer: 2
-    
-    }, {
-    question:"In Bambi, what word does the owl use to describe falling in love?",
-    choices: ["Whimsical", "Miserable", "Joyful", "Twitterpatted"],
-    validAnswer: 3
-    
-    }
-    
-    ];
-
-    console.log(disneyQuestion.length);
-
+//Creates a shuffle function based on the Fisher-Yates shuffle algorithm.
 function shuffle(o) {
-    for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
-    };
-
-var number = 30; //  Set our number counter to 100.
-
-var intervalId; //  Variable that will hold our interval ID when we execute the "run" function
-
-$("#startButton").on("click", run); //  When the resume button gets clicked, execute the run function.
-$("#startOver").on("click", reset); // write a reset function
-
-function reset() {
-   $("startOver").attr("id", "startButton");
-   $("#startButton").text("Start Over");
-   number = 30;
-   shuffle(disneyQuestion)
-   intervalId;
+  for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+  return o;
 };
 
-//  The run function sets an interval that runs the decrement function once a second.
-function run() {
-    disneyQuestion = shuffle(disneyQuestion)
-   $("#startButton").attr('id', 'startOver');
-   $("startOver").text("Start Over");
-   $("#spaceTitle").empty();
-   $(".button").hide();
-   $("#question").html("<h2>"+ disneyQuestion[0].question + "<h2>");
-   $("#choices").html("<h3>"+ "<button>" + "A. " + disneyQuestion[0].choices[0] + "</button>" + "<button>" + " B. " + disneyQuestion[0].choices[1] + "</button>"+"<button>"+"C. " + disneyQuestion[0].choices[2] + "</button>"+ "<button>"+ "D. " + disneyQuestion[0].choices[3] + "</button>"+"</h3>");
-   clearInterval(intervalId);
-   intervalId = setInterval(decrement, 1000);
-}
+// Creates a prototype function containing a counter for the user's choice, counters for correct and incorrect answers, a counter
+// for the current question, the count of the timer for answered questions and an object with the questions, choices, an image for each question and the correct 
+// answer.
 
-//  The decrement function.
-function decrement() {
+$.fn.trivia = function() {
+  var t = this;
+  t.userPick = null;
 
-   //  Decrease number by one.
-   number--;
-+
-   //  Show the number in the #show-number tag.
-   $("#showNumber").html("<h2>" + "Time Left: " + number + " Seconds" + "</h2>");
+  t.answers = {
+      correct: 0,
+      incorrect: 0
+  };
 
-   //  Once number hits zero...
-   if (number == -1) {
-       //  ...run the stop function.
-       reset();
-       //  Alert the user that time is up.
-       alert("Time Up! How did you do?");
-   }
-}
+  t.images = null;
+  t.count = 30;
+  t.current = 0;
+  t.questions = [{
+      question: "What type of galaxy is the most common type of galaxy found in the universe?",
+      choices: ["Elliptical Galaxies", "Spiral Galaxies", "Irregular Galaxies", "Note Galaxies"],
+      image: "assets/images/galaxy.jpg",
+      correct: 0
+  }, {
+      question: "How old is the universe in light years?",
+      choices: ["1.8 billion light years old", "13.8 million light years old", "13.8 billion light years old", "7.8 billion light years old"],
+      image: "assets/images/lightspeed.jpg",
+      correct: 2,
 
-// function timer(){
-//     counter--;
-//     if (counter > 0) {
-//      clearInterval(counter);
-//      return;
-//     }
-    
-//      $("#timer").html("Time remaining: " + "00:" + counter + " secs");
-//     }
+  }, {
+      question: "What is the name of the matter that we can't see?",
+      choices: ["antineutrinos", "antiheroes", "antimatter", "dark matter"],
+      image:"assets/images/matter",
+      correct: 3,
 
-    
-    
-//     function displayTrivia() {
-//     $("#questionDiv").html(disneyQuestion[0].question);
-//     question++;
-    
-//       var choicesArr = disneyQuestion[0].choices;
-//       var buttonsArr = [];
-    
-//       for (let i = 0; i < choicesArr.length; i++) {
-//         var button = $('<button>');
-//         button.text(choicesArr[i]);
-//         button.attr('data-id', i);
-//         $('#choicesDiv').append(button);
-//        }
-    
-//       } 
+  }, {
+      question: "What is the most common type of star found in the Milky Way galaxy?",
+      choices: ["Red Giants", "Neutron Stars", "Red Dwarfs", "Supergiant Stars"],
+      image: "assets/images/star.jpg",
+      correct: 1
 
-// $("#startButton").click(function(){
-// $(this).hide();
-// counter = setInterval(timer, 1000); 
-// displayTrivia();
-// }); 
+  }, {
+      question: "Who was the first woman in space?",
+      choices: ["Maggie Gylenhaal", "Tara Lipinski", "Valentina Terechkova", "Sally Ride"],
+      image: "assets/images/woman.jpg",
+      correct: 2
 
-//  $('#choicesDiv').on('click', 'button', function(){
-//  userPick = $(this).data("id");
-//  disneyQuestion[0].validAnswer;
-//  if(userPick != disneyQuestion[0].validAnswer) {
+  }, {
+      question: "What was the name of the Russian astronaut, who stayed in space for more than 437 days?",
+      choices: ["Anatoly Berezovoy", "Oleg Atkov", "Valeri Polyakov", "Ivan Korshukov"],
+      image: "assets/images/russian.jpg",
+      correct: 2,
 
-//  $('#choicesDiv').text("Wrong Answer! The correct answer is Rajah.");
-//  incorrectAnswer++;
+  }, {
+      question: "Which of these planets does not have any moons?",
+      choices: ["Mars", "Neptune", "Saturn", "Venus"],
+      image: "assets/images/pluto.png",
+      correct: 3,
 
-// } else if (userPick === disneyQuestion[0].validAnswer) {
-// $('#choicesDiv').text("Correct!!! The pet tiger name is Rajah");
-// correctAnswer++;
+  }, {
+      question: "How long is a light year in miles?",
+      choices: ["5.88 trillion miles", "400 billion miles", "1.867 million miles", "327.5 billion miles"],
+      image: "assets/images/leia.png",
+      correct: 0,
+  }];
 
-// }
+  t.questions = shuffle(t.questions)
 
-// });
+  t.ask = function() {
+    if (t.questions[t.current]) {
+        $("#timer").html("Time remaining: " + "00:" + t.count + " secs");
+        $("#question").html(t.questions[t.current].question);
+        var choicesArr = t.questions[t.current].choices;
+        var picture = t.questions[t.current].image;
+        var buttonsArr = [];
+
+        $("photo").attr("src", picture)
+
+        for (var i = 0; i < choicesArr.length; i++) {
+            var button = $('<button>');
+            button.text(choicesArr[i]);
+            button.attr('data-id', i);
+            $('#choices').append(button);
+        }
+          window.triviaCounter = setInterval(t.timer, 1000);
+      } else {
+          $('body').append($('<div />', {
+              text: 'Unanswered: ' + (
+                  t.questions.length - (t.answers.correct + t.answers.incorrect)),
+              class: 'result'
+          }));
+          $('#start_button').text('Restart').appendTo('body').show();
+      }
+  };
+  t.timer = function() {
+      t.count--;
+      if (t.count <= 0) {
+          setTimeout(function() {
+              t.nextQ();
+          });
+
+      } else {
+          $("#timer").html("Time remaining: " + "00:" + t.count + " secs");
+      }
+  };
+  t.nextQ = function() {
+      t.current++;
+      clearInterval(window.triviaCounter);
+      t.count = 30;
+      $('#timer').html("");
+      setTimeout(function() {
+          t.cleanUp();
+          t.ask();
+      }, 1000)
+  };
+  t.cleanUp = function() {
+      $('div[id]').each(function(item) {
+          $(this).html('');
+      });
+      $('.correct').html('Correct answers: ' + t.answers.correct);
+      $('.incorrect').html('Incorrect answers: ' + t.answers.incorrect);
+  };
+  t.answer = function(correct) {
+      var string = correct ? 'correct' : 'incorrect';
+      t.answers[string]++;
+      $('.' + string).html(string + ' answers: ' + t.answers[string]);
+  };
+  return t;
+};
+
+var Trivia;
+
+$("#start_button").click(function() {
+  $(this).hide();
+  $('.result').remove();
+  $('div').html('');
+  Trivia = new $(window).trivia();
+  Trivia.ask();
+});
+
+$('#choices').on('click', 'button', function(e) {
+  var userPick = $(this).data("id"),
+      t = Trivia || $(window).trivia(),
+      index = t.questions[t.current].correct,
+      correct = t.questions[t.current].choices[index];
+
+  if (userPick !== index) {
+      $('#choices').text("Wrong Answer! The correct answer was: " + correct);
+      t.answer(false);
+  } else {
+      $('#choices').text("Correct!!! The correct answer was: " + correct);
+      t.answer(true);
+  }
+  t.nextQ();
+});
