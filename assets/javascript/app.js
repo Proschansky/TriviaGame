@@ -34,7 +34,7 @@ $.fn.trivia = function() {
   }, {
       question: "What is the name of the matter that we can't see?",
       choices: ["antineutrinos", "antiheroes", "antimatter", "dark matter"],
-      image:"assets/images/matter",
+      image:"assets/images/matter.jpg",
       correct: 3,
 
   }, {
@@ -78,7 +78,7 @@ $.fn.trivia = function() {
         var picture = t.questions[t.current].image;
         var buttonsArr = [];
 
-        $("photo").attr("src", picture)
+        $("body").css("background-image", "url(" + picture + ")")
 
         for (var i = 0; i < choicesArr.length; i++) {
             var button = $('<button>');
@@ -87,7 +87,10 @@ $.fn.trivia = function() {
             $('#choices').append(button);
         }
           window.triviaCounter = setInterval(t.timer, 1000);
-      } else {
+
+      }
+      
+        else {
           $('body').append($('<div />', {
               text: 'Unanswered: ' + (
                   t.questions.length - (t.answers.correct + t.answers.incorrect)),
@@ -96,6 +99,7 @@ $.fn.trivia = function() {
           $('#start_button').text('Restart').appendTo('body').show();
       }
   };
+
   t.timer = function() {
       t.count--;
       if (t.count <= 0) {
