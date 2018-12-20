@@ -1,0 +1,60 @@
+body {
+    background-image: url('../images/stars.jpg');
+}
+
+.row {
+    display: ruby-text-container;
+    justify-content: center;
+    width: 960px;
+    height: 400px;
+    display: column;
+    margin: 200px;
+
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+    font-size: 100px;
+    font-family: Orbitron;
+    color: green;
+    line-height: 100px;
+}
+
+button {
+    line-height: 100px;
+    height: 100px;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 200px;
+    background-color:silver;
+    border-color: black;
+}
+
+button:hover {
+    background-color: green;
+    font-family: Orbitron;
+    font-size: 1.5em;
+    color:black;
+}
+
+.button {
+    margin-left:450px;
+}
+
+.col {
+    background-color: green;
+    display: inherit;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+    font-size: 1.5em;
+    font-family: Orbitron;
+    color: green;
+    line-height: 100px;
+}
