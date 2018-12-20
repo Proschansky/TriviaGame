@@ -49,7 +49,7 @@ button:hover {
     display: inherit;
 }
 
-h2 {
+h2, h3 {
     display: flex;
     justify-content: center;
     vertical-align: center;

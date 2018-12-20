@@ -85,7 +85,8 @@ function run() {
    $("startOver").text("Start Over");
    $("#spaceTitle").empty();
    $(".button").hide();
-   $("#showNumber").html("<h2>"+ shuffle(disneyQuestion[0].question))
+   $("#question").html("<h2>"+ disneyQuestion[0].question + "<h2>");
+   $("#choices").html("<h3>"+ "<button>" + "A. " + disneyQuestion[0].choices[0] + "</button>" + "<button>" + " B. " + disneyQuestion[0].choices[1] + "</button>"+"<button>"+"C. " + disneyQuestion[0].choices[2] + "</button>"+ "<button>"+ "D. " + disneyQuestion[0].choices[3] + "</button>"+"</h3>");
    clearInterval(intervalId);
    intervalId = setInterval(decrement, 1000);
 }
@@ -95,7 +96,7 @@ function decrement() {
 
    //  Decrease number by one.
    number--;
-
++
    //  Show the number in the #show-number tag.
    $("#showNumber").html("<h2>" + "Time Left: " + number + " Seconds" + "</h2>");
 
